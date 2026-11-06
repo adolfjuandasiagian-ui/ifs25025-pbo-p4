@@ -29,8 +29,11 @@ public class FinancePresenter {
         return type == TransactionType.INCOME ? "Pemasukan" : "Pengeluaran";
     }
 
-    /** Label opsi pengurutan. */
+    /** Label opsi pengurutan (aman terhadap nilai null). */
     public String formatSortOption(SortOption option) {
+        if (option == null) {
+            return "Urutkan...";
+        }
         return switch (option) {
             case AMOUNT_ASC -> "Jumlah terkecil";
             case AMOUNT_DESC -> "Jumlah terbesar";
