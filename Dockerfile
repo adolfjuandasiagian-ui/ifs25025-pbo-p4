@@ -8,6 +8,9 @@ COPY .mvn .mvn
 COPY mvnw .
 COPY src ./src
 
+# BERIKAN IZIN EKSEKUSI PADA MVNW (PENTING AGAR TIDAK PERMISSION DENIED)
+RUN chmod +x mvnw
+
 # Lakukan build file JAR (lewati unit test agar lebih cepat)
 RUN ./mvnw clean package -DskipTests
 
