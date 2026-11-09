@@ -10,5 +10,6 @@ server:
 
 vaadin:
   launch-browser: false
+  production-mode: true
   liveReload:
-    enabled: truegit add src/main/resources/application.yaml
+    enabled: false
