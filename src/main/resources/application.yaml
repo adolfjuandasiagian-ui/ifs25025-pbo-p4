@@ -3,11 +3,7 @@ spring:
     name: adolf_siagian-pbo2026-springboot-cashflow
   devtools:
     restart:
-      enabled: true
-      poll-interval: 1s
-      quiet-period: 400ms
-    liveload:
-      enabled: true
+      enabled: false
 
 server:
   port: ${PORT:8080}
@@ -15,4 +11,4 @@ server:
 vaadin:
   launch-browser: false
   liveReload:
-    enabled: true
+    enabled: truegit add src/main/resources/application.yaml
