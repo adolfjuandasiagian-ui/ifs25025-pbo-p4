@@ -3,13 +3,17 @@ spring:
     name: adolf_siagian-pbo2026-springboot-cashflow
   devtools:
     restart:
-      enabled: false
+      enabled: true
+      poll-interval: 1s
+      quiet-period: 400ms
+    liveload:
+      enabled: true
 
 server:
-  port: ${PORT:8080}
+  # Render memberi variabel PORT; lokal memakai APP_PORT dari .env (default 8080)
+  port: ${PORT:${APP_PORT:8080}}
 
 vaadin:
   launch-browser: false
-  production-mode: true
   liveReload:
-    enabled: false
+    enabled: true
