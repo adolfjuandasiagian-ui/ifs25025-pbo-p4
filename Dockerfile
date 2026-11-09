@@ -2,27 +2,23 @@
 FROM eclipse-temurin:25-jdk-jammy AS build
 WORKDIR /app
 
-# Salin file konfigurasi dan direktori proyek
 COPY pom.xml .
 COPY .mvn .mvn
 COPY mvnw .
 COPY src ./src
 
-# Berikan izin eksekusi pada mvnw
 RUN chmod +x mvnw
 
-# Lakukan build file JAR (lewati unit test agar lebih cepat)
-RUN ./mvnw clean package -DskipTests
+# WAJIB -Pproduction: membangun bundle frontend Vaadin & membuang vaadin-dev.
+# Tanpa ini, JAR berjalan di mode development dan gagal ("vaadin-dev-server not found").
+RUN ./mvnw clean package -Pproduction -DskipTests
 
 # --- TAHAP 2: Jalankan aplikasi dengan JRE 25 yang ringkas ---
 FROM eclipse-temurin:25-jre-jammy
 WORKDIR /app
 
-# Salin hasil file .jar dari tahap build sebelumnya
 COPY --from=build /app/target/*.jar app.jar
 
-# Port default aplikasi Spring Boot
 EXPOSE 8080
 
-# Perintah untuk menjalankan aplikasi saat container aktif
-ENTRYPOINT ["java", "-jar", "app.jar"]
+ENTRYPOINT ["java", "-XX:MaxRAMPercentage=75", "-Dvaadin.productionMode=true", "-jar", "app.jar"]
