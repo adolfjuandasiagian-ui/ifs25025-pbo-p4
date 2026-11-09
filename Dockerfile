@@ -1,5 +1,5 @@
-# --- TAHAP 1: Build aplikasi menggunakan Maven ---
-FROM maven:3.9-eclipse-temurin-21 AS build
+# --- TAHAP 1: Build aplikasi menggunakan Maven & Java 25 ---
+FROM eclipse-temurin:25-jdk-jammy AS build
 WORKDIR /app
 
 # Salin file konfigurasi dan direktori proyek
@@ -8,14 +8,14 @@ COPY .mvn .mvn
 COPY mvnw .
 COPY src ./src
 
-# BERIKAN IZIN EKSEKUSI PADA MVNW (PENTING AGAR TIDAK PERMISSION DENIED)
+# Berikan izin eksekusi pada mvnw
 RUN chmod +x mvnw
 
 # Lakukan build file JAR (lewati unit test agar lebih cepat)
 RUN ./mvnw clean package -DskipTests
 
-# --- TAHAP 2: Jalankan aplikasi dengan JRE yang ringkas ---
-FROM eclipse-temurin:21-jre
+# --- TAHAP 2: Jalankan aplikasi dengan JRE 25 yang ringkas ---
+FROM eclipse-temurin:25-jre-jammy
 WORKDIR /app
 
 # Salin hasil file .jar dari tahap build sebelumnya
