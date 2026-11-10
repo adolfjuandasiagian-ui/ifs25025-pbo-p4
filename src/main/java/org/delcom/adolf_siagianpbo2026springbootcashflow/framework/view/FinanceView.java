@@ -35,7 +35,7 @@ import java.util.Locale;
  * penambahan pemasukan/pengeluaran, dan penghapusan dengan konfirmasi.
  */
 @Route("")
-@PageTitle("Cashflow")
+@PageTitle("Cashflow | Catatan Keuangan")
 public class FinanceView extends VerticalLayout {
 
     private enum EntryKind {

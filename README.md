@@ -11,6 +11,7 @@ Aplikasi web pencatat keuangan pribadi (Cashflow) berbasis **Spring Boot**, **Ma
 - Hapus transaksi dengan konfirmasi
 - Validasi keterangan dan jumlah
 - Aksesibilitas: bahasa halaman Indonesia, landmark utama, status koneksi untuk pembaca layar, dan tata letak responsif
+- Metadata SEO shell: judul awal, deskripsi, canonical URL, dan favicon
 
 Aturan pengurutan berada di `domain/entity/SortOption`; Grid hanya menampilkan data dan tidak mendefinisikan comparator sendiri.
 
