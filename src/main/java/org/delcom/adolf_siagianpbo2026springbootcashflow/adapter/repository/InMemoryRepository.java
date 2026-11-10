@@ -40,6 +40,16 @@ public abstract class InMemoryRepository<T, ID> implements IRepository<T, ID> {
 
     @Override
     public T save(T entity) {
+        if (entity == null) {
+            throw new IllegalArgumentException("Entitas tidak boleh null");
+        }
+        ID id = idExtractor.apply(entity);
+        if (id == null) {
+            throw new IllegalArgumentException("ID entitas tidak boleh null");
+        }
+        if (findById(id).isPresent()) {
+            throw new IllegalArgumentException("Entitas dengan ID " + id + " sudah ada");
+        }
         data.add(entity);
         return entity;
     }
@@ -51,7 +61,20 @@ public abstract class InMemoryRepository<T, ID> implements IRepository<T, ID> {
 
     @Override
     public void update(T entity) {
-        // Objek mutable disimpan by-reference dalam memori.
+        if (entity == null) {
+            throw new IllegalArgumentException("Entitas tidak boleh null");
+        }
+        ID id = idExtractor.apply(entity);
+        if (id == null) {
+            throw new IllegalArgumentException("ID entitas tidak boleh null");
+        }
+        for (int index = 0; index < data.size(); index++) {
+            if (id.equals(idExtractor.apply(data.get(index)))) {
+                data.set(index, entity);
+                return;
+            }
+        }
+        throw new IllegalArgumentException("Entitas dengan ID " + id + " tidak ditemukan");
     }
 
     @Override

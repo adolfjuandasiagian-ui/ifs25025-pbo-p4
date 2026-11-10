@@ -12,10 +12,10 @@ public class Transaction {
     private final int id;
 
     /** Keterangan transaksi. */
-    private String description;
+    private final String description;
 
     /** Jumlah uang; selalu bernilai positif, arah ditentukan oleh {@link #type}. */
-    private BigDecimal amount;
+    private final BigDecimal amount;
 
     /** Jenis transaksi: pemasukan atau pengeluaran. */
     private final TransactionType type;
@@ -29,8 +29,23 @@ public class Transaction {
 
     public Transaction(int id, String description, BigDecimal amount, TransactionType type,
                        LocalDateTime createdAt) {
+        if (id <= 0) {
+            throw new IllegalArgumentException("ID transaksi harus lebih besar dari 0");
+        }
+        if (description == null || description.isBlank()) {
+            throw new IllegalArgumentException("Keterangan tidak boleh kosong");
+        }
+        if (amount == null || amount.signum() <= 0) {
+            throw new IllegalArgumentException("Jumlah harus lebih besar dari 0");
+        }
+        if (type == null) {
+            throw new IllegalArgumentException("Jenis transaksi wajib diisi");
+        }
+        if (createdAt == null) {
+            throw new IllegalArgumentException("Waktu transaksi wajib diisi");
+        }
         this.id = id;
-        this.description = description;
+        this.description = description.trim();
         this.amount = amount;
         this.type = type;
         this.createdAt = createdAt;
@@ -67,15 +82,5 @@ public class Transaction {
     /** Dampak transaksi terhadap saldo: positif untuk pemasukan, negatif untuk pengeluaran. */
     public BigDecimal signedAmount() {
         return isIncome() ? amount : amount.negate();
-    }
-
-    /** Mengubah keterangan transaksi. */
-    public void changeDescription(String description) {
-        this.description = description;
-    }
-
-    /** Mengubah jumlah transaksi. */
-    public void changeAmount(BigDecimal amount) {
-        this.amount = amount;
     }
 }

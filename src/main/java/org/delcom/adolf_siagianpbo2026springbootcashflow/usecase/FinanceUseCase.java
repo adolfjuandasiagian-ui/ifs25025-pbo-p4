@@ -8,6 +8,7 @@ import org.delcom.adolf_siagianpbo2026springbootcashflow.domain.repository.ITran
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Locale;
 import java.util.stream.Stream;
 
 /**
@@ -54,8 +55,9 @@ public class FinanceUseCase {
         if (keyword == null || keyword.isBlank()) {
             return transactionRepository.findAll();
         }
-        String lowerKeyword = keyword.trim().toLowerCase();
-        return transactionRepository.findBy(t -> t.getDescription().toLowerCase().contains(lowerKeyword));
+        String lowerKeyword = keyword.trim().toLowerCase(Locale.ROOT);
+        return transactionRepository.findBy(
+                t -> t.getDescription().toLowerCase(Locale.ROOT).contains(lowerKeyword));
     }
 
     /** Mengurutkan semua transaksi sesuai {@link SortOption}. */

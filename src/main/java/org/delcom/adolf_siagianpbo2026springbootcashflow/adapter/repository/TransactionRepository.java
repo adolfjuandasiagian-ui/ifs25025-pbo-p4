@@ -20,6 +20,13 @@ public class TransactionRepository extends InMemoryRepository<Transaction, Integ
     }
 
     @Override
+    public Transaction save(Transaction transaction) {
+        Transaction saved = super.save(transaction);
+        idCounter = Math.max(idCounter, transaction.getId());
+        return saved;
+    }
+
+    @Override
     public Transaction saveIncome(String description, BigDecimal amount) {
         return save(new Transaction(nextId(), description, amount, TransactionType.INCOME));
     }

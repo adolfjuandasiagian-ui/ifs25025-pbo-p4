@@ -10,6 +10,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
+import java.util.Locale;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -63,5 +64,17 @@ class FinanceUseCaseTest {
         useCase.addIncome("A", BigDecimal.ONE);
         useCase.getAllTransactions().clear();
         assertEquals(1, useCase.getAllTransactions().size());
+    }
+
+    @Test
+    void searchIsIndependentOfDefaultLocale() throws Exception {
+        useCase.addIncome("Income", BigDecimal.ONE);
+        Locale originalLocale = Locale.getDefault();
+        try {
+            Locale.setDefault(Locale.forLanguageTag("tr-TR"));
+            assertEquals(1, useCase.searchTransactions("INCOME").size());
+        } finally {
+            Locale.setDefault(originalLocale);
+        }
     }
 }
