@@ -63,6 +63,7 @@ public class FinanceView extends VerticalLayout {
         setSizeFull();
         setPadding(true);
         setSpacing(true);
+        getElement().setAttribute("role", "main");
         statusLabel.getElement().setAttribute("role", "status");
         statusLabel.getElement().setAttribute("aria-live", "polite");
 
@@ -84,7 +85,9 @@ public class FinanceView extends VerticalLayout {
         );
         summary.setWidthFull();
         summary.setSpacing(true);
-        summary.getStyle().set("align-items", "stretch");
+        summary.getStyle()
+                .set("align-items", "stretch")
+                .set("flex-wrap", "wrap");
         return summary;
     }
 
@@ -94,7 +97,7 @@ public class FinanceView extends VerticalLayout {
                 .set("display", "block")
                 .set("font-size", "0.875rem")
                 .set("font-weight", "500")
-                .set("color", accent);
+                .set("color", valueColor);
 
         value.getStyle()
                 .set("display", "block")
@@ -107,7 +110,7 @@ public class FinanceView extends VerticalLayout {
         Div card = new Div(caption, value);
         card.getStyle()
                 .set("flex", "1")
-                .set("min-width", "0")
+                .set("min-width", "220px")
                 .set("background", background)
                 .set("border", "1px solid " + accent)
                 .set("border-left", "6px solid " + accent)
@@ -217,6 +220,9 @@ public class FinanceView extends VerticalLayout {
                 searchField, searchButton, sortSelect, refreshButton, incomeButton, expenseButton);
         toolbar.setWidthFull();
         toolbar.setFlexGrow(1, searchField);
+        toolbar.getStyle()
+                .set("flex-wrap", "wrap")
+                .set("align-items", "flex-end");
         return toolbar;
     }
 
