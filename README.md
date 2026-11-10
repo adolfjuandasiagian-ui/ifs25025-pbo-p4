@@ -10,6 +10,7 @@ Aplikasi web pencatat keuangan pribadi (Cashflow) berbasis **Spring Boot**, **Ma
 - Lihat saldo (total pemasukan − total pengeluaran)
 - Hapus transaksi dengan konfirmasi
 - Validasi keterangan dan jumlah
+- Aksesibilitas: bahasa halaman Indonesia, landmark utama, status koneksi untuk pembaca layar, dan tata letak responsif
 
 Aturan pengurutan berada di `domain/entity/SortOption`; Grid hanya menampilkan data dan tidak mendefinisikan comparator sendiri.
 

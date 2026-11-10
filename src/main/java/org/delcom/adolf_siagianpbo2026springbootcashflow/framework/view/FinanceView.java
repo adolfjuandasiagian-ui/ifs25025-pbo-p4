@@ -1,5 +1,6 @@
 package org.delcom.adolf_siagianpbo2026springbootcashflow.framework.view;
 
+import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.dialog.Dialog;
@@ -26,6 +27,7 @@ import org.delcom.adolf_siagianpbo2026springbootcashflow.usecase.FinanceUseCase;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Tampilan web Vaadin aplikasi Cashflow.
@@ -60,6 +62,7 @@ public class FinanceView extends VerticalLayout {
         this.financeUseCase = financeUseCase;
         this.presenter = presenter;
 
+        UI.getCurrent().setLocale(Locale.forLanguageTag("id-ID"));
         setSizeFull();
         setPadding(true);
         setSpacing(true);
