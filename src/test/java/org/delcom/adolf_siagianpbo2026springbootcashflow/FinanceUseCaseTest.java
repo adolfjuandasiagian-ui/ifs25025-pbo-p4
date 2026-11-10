@@ -54,7 +54,9 @@ class FinanceUseCaseTest {
         assertEquals(2, useCase.searchTransactions("GAJI").size());
         List<Transaction> sorted = useCase.sortTransactions(SortOption.AMOUNT_DESC);
         assertEquals("gaji ibu", sorted.get(0).getDescription());
+        assertEquals("Kopi", useCase.sortTransactions(SortOption.AMOUNT_ASC).get(0).getDescription());
         assertEquals("Gaji Bulanan", useCase.sortTransactions(SortOption.INCOME_FIRST).get(0).getDescription());
+        assertEquals("gaji ibu", useCase.sortTransactions(SortOption.EXPENSE_FIRST).get(0).getDescription());
         assertEquals(1, useCase.findTransactions("kopi", SortOption.AMOUNT_ASC).size());
         assertEquals(3, useCase.findTransactions("", null).size());
     }

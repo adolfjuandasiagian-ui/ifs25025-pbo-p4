@@ -6,10 +6,12 @@ Aplikasi web pencatat keuangan pribadi (Cashflow) berbasis **Spring Boot**, **Ma
 
 - Tambah pemasukan dan pengeluaran
 - Cari transaksi berdasarkan keterangan
-- Urutkan transaksi
+- Urutkan transaksi melalui empat `SortOption` domain: jumlah terkecil/terbesar dan pemasukan/pengeluaran terlebih dahulu
 - Lihat saldo (total pemasukan − total pengeluaran)
 - Hapus transaksi dengan konfirmasi
 - Validasi keterangan dan jumlah
+
+Aturan pengurutan berada di `domain/entity/SortOption`; Grid hanya menampilkan data dan tidak mendefinisikan comparator sendiri.
 
 ## Struktur Layer
 

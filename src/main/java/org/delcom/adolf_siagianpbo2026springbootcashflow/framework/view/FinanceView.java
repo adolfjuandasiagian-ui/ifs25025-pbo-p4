@@ -25,7 +25,6 @@ import org.delcom.adolf_siagianpbo2026springbootcashflow.domain.exception.Valida
 import org.delcom.adolf_siagianpbo2026springbootcashflow.usecase.FinanceUseCase;
 
 import java.math.BigDecimal;
-import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -64,6 +63,8 @@ public class FinanceView extends VerticalLayout {
         setSizeFull();
         setPadding(true);
         setSpacing(true);
+        statusLabel.getElement().setAttribute("role", "status");
+        statusLabel.getElement().setAttribute("aria-live", "polite");
 
         configureGrid();
         configureToolbar();
@@ -130,39 +131,29 @@ public class FinanceView extends VerticalLayout {
                 .setHeader("ID")
                 .setKey("id")
                 .setAutoWidth(true)
-                .setFlexGrow(0)
-                .setSortable(true)
-                .setComparator(Transaction::getId);
+                .setFlexGrow(0);
 
         grid.addColumn(Transaction::getDescription)
                 .setHeader("Keterangan")
                 .setKey("description")
-                .setFlexGrow(1)
-                .setSortable(true)
-                .setComparator(Comparator.comparing(Transaction::getDescription, String.CASE_INSENSITIVE_ORDER));
+                .setFlexGrow(1);
 
         grid.addColumn(t -> presenter.formatMoney(t.getAmount()))
                 .setHeader("Jumlah")
                 .setKey("amount")
                 .setAutoWidth(true)
-                .setTextAlign(com.vaadin.flow.component.grid.ColumnTextAlign.END)
-                .setSortable(true)
-                .setComparator(Comparator.comparing(Transaction::getAmount));
+                .setTextAlign(com.vaadin.flow.component.grid.ColumnTextAlign.END);
 
         grid.addComponentColumn(this::createTypeBadge)
                 .setHeader("Tipe")
                 .setKey("type")
                 .setAutoWidth(true)
-                .setFlexGrow(0)
-                .setSortable(true)
-                .setComparator(Comparator.comparing(Transaction::getType));
+                .setFlexGrow(0);
 
         grid.addColumn(presenter::formatCreatedAt)
                 .setHeader("Waktu")
                 .setKey("createdAt")
-                .setAutoWidth(true)
-                .setSortable(true)
-                .setComparator(Comparator.comparing(Transaction::getCreatedAt));
+                .setAutoWidth(true);
 
         grid.addComponentColumn(this::createActionButtons)
                 .setHeader("Tindakan")
@@ -197,10 +188,12 @@ public class FinanceView extends VerticalLayout {
     // ------------------------------------------------------------------ toolbar
 
     private void configureToolbar() {
+        searchField.setLabel("Cari keterangan");
         searchField.setPlaceholder("Cari keterangan...");
         searchField.setPrefixComponent(VaadinIcon.SEARCH.create());
         searchField.setClearButtonVisible(true);
 
+        sortSelect.setLabel("Urutkan transaksi");
         sortSelect.setPlaceholder("Urutkan...");
         sortSelect.setEmptySelectionAllowed(true);
         sortSelect.setItems(SortOption.values());
